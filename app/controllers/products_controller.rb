@@ -22,6 +22,7 @@ class ProductsController < ApplicationController
   		redirect_to products_url
   	else
   		render :new
+  	end
   end
 
   def update
@@ -38,7 +39,10 @@ class ProductsController < ApplicationController
   	@product = Product.find(params[:id])
   	@product.destroy
   	redirect_to products_path
+  end
 
-  	end
+  private
+  def product_params
+  	params.require(:product).permit(:name, :description, :price_in_cents)
   end
 end
