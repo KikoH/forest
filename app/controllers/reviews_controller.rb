@@ -1,8 +1,20 @@
 class ReviewsController < ApplicationController
-  before_filter :load_product :ensure_logged_in, only: [:create, :destroy]
+  before_filter :load_product# :ensure_logged_in, only: [:create, :destroy]
+  before_filter :load_review, only: [:show, :edit, :destroy, :update]
 
   def show
-  	@review = Review.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    @review.update_attributes(review_params)
+    if @review.save
+      redirect_to @review
+    else
+      render :edit
+    end
   end
 
   def create
@@ -17,8 +29,8 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-  	@review = Review.find(params[:id])
   	@review.destroy
+    redirect_to products_path
   end
 
   private
@@ -29,4 +41,9 @@ class ReviewsController < ApplicationController
   def load_product
   	@product = Product.find(params[:product_id])
   end
+
+  def load_review
+    @review = @product.reviews.find(params[:id])
+  end
+
 end
