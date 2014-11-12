@@ -29,7 +29,7 @@
 					<li><a href="/products">Main Menu</a></li>
 					<li><a href="/products/new">Add a product</a></li>
 					<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/categories/1">Electronics</a></li>
 							<li><a href="/categories/4">Books</a></li>
@@ -42,7 +42,14 @@
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/sessions/new">Log in</a></li>
+					<% if current_user %> 
+					<li><%= link_to current_user.name, current_user %> </li>
+					<li><%= link_to "Log out", session_path("current"), :method => :delete %></li>
+					<% else %>
+					<!-- <li><a href="/sessions/new">Log in</a></li> -->
+					<!-- Indicates a successful or positive action -->
+					<a href="/sessions/new"> <button type="button" class="btn btn-success">Log in</button> </a>
+					<% end %>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
@@ -61,12 +68,12 @@
 
 	<%= yield %>
 
-	<p class="userinfo">
+	<!-- <p class="userinfo">
 		<% if current_user %>
 		Signed in as <%= link_to current_user.name, current_user %> <%= link_to "Log out", session_path("current"), :method => :delete %>
 		<% else %>
 		<%= link_to "Log in", new_session_path %> or <%= link_to "Sign up", new_user_path %>
 		<% end %>
-	</p>
+	</p> -->
 </body>
 </html>
