@@ -1,12 +1,21 @@
 <h1>Main Page</h1>
 
-
-<% @categories.each do |cat| %>
-	<p><%= link_to cat.name, category_path(cat) %></p>
-	<% end %>
-
-<% @products.each do |product| %>
-	<p><%= link_to product.name, product_path(product)%> |   <%= product.description%> <%= product.formatted_price %>$ | <%= product.category_id%></p>
-	<% end %>
-
-	<%= link_to "Add a product", new_product_path %>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<% @products.each do |product| %>
+	<tbody>
+		<tr>
+			<td><%= link_to product.name, product_path(product)%></td>
+			<td><%= product.description%></td>
+			<td><%= product.formatted_price %>$</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<%= link_to "Add a product", new_product_path %>

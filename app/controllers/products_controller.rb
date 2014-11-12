@@ -4,6 +4,11 @@ class ProductsController < ApplicationController
     @categories = Category.all
   end
 
+  def home
+    @products = Product.all
+    @categories = Category.all
+  end
+
   def show
   	@product = Product.find(params[:id])
 
