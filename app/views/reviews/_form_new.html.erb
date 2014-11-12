@@ -1,4 +1,5 @@
 <h4>New Review</h4>
+
 <% if current_user %>
   <%= form_for([@product, @review]) do |f| %>
     <% if @review.errors.any? %>

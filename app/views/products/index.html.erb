@@ -1,7 +1,12 @@
 <h1>Main Page</h1>
 
+
+<% @categories.each do |cat| %>
+	<p><%= link_to cat.name, category_path(cat) %></p>
+	<% end %>
+
 <% @products.each do |product| %>
-	<p><%= link_to product.name, product_path(product)%> |   <%= product.description%> <%= product.formatted_price %>$ </p>
+	<p><%= link_to product.name, product_path(product)%> |   <%= product.description%> <%= product.formatted_price %>$ | <%= product.category_id%></p>
 	<% end %>
 
 	<%= link_to "Add a product", new_product_path %>
