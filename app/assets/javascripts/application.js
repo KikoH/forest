@@ -15,3 +15,17 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+$(document).on('ready page:load', function() {
+
+  if ($('.pagination').length) {
+    $(window).scroll(function() {
+      var url = $('.pagination span.next').children().attr('href');
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+      	console.log(url);
+        $('.pagination').text("Fetching more products...");
+        return $.getScript(url);
+      }
+    });
+  }
+});
