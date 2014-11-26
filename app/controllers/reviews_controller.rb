@@ -21,29 +21,33 @@ class ReviewsController < ApplicationController
   	@review = @product.reviews.build(review_params)
   	@review.user = current_user
 
-  	if @review.save
-  		redirect_to products_path, notice: 'Review created successfully'
-  	else
-  		render 'products/show'
-  	end
+    respond_to do |format|
+     if @review.save
+      format.html {redirect_to products_path, notice: 'Review created successfully'}
+      format.js {} #This will look for app/views/reviews/create.js.erb
+    else
+      format.html { render 'products/show'}
+      format.js {}
+    end
   end
+end
 
-  def destroy
-  	@review.destroy
-    redirect_to products_path
-  end
+def destroy
+ @review.destroy
+ redirect_to products_path
+end
 
-  private
-  def review_params
-  	params.require(:review).permit(:comment, :product_id)
-  end
+private
+def review_params
+ params.require(:review).permit(:comment, :product_id)
+end
 
-  def load_product
-  	@product = Product.find(params[:product_id])
-  end
+def load_product
+ @product = Product.find(params[:product_id])
+end
 
-  def load_review
-    @review = @product.reviews.find(params[:id])
-  end
+def load_review
+  @review = @product.reviews.find(params[:id])
+end
 
 end

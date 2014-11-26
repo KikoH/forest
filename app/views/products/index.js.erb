@@ -1,1 +1,6 @@
-$('#products').html("<%= j(render :partial => 'products') %> ");
+<% if (params[:search]) %>
+	$('#products').html("<%= j(render :partial => 'products') %> ");
+<% else %>
+	$('#products').append("<%= j(render :partial => 'products') %> ");
+<%end%>
+$('.pagination').replaceWith('<%= j paginate(@products) %>');
