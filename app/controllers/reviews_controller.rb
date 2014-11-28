@@ -24,10 +24,12 @@ class ReviewsController < ApplicationController
     respond_to do |format|
      if @review.save
       format.html {redirect_to products_path, notice: 'Review created successfully'}
-      format.js {} #This will look for app/views/reviews/create.js.erb
+      format.js { j render :partial => 'reviews/reviews' } #This will look for app/views/reviews/create.js.erb
     else
       format.html { render 'products/show'}
-      format.js {}
+      format.js { 
+        j render :partial => 'reviews/review_form_errors', :status => 404
+      }
     end
   end
 end

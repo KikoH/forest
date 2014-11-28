@@ -3,4 +3,5 @@ class Review < ActiveRecord::Base
 	belongs_to :product
 
 	scope :newest_first, -> {order("created_at DESC")}
+	validates :comment, :presence => true
 end
